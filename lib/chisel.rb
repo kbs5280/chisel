@@ -1,28 +1,22 @@
 require 'pry'
 
 class Chisel
-  attr_reader :input
+  attr_reader :markdown
 
-  def initialize
-    file = File.read(ARGV[0])
-    @input = file.chop.gsub("\n", " ")
+  def initialize(markdown)
+    @markdown = markdown #File.read(ARGV[0])
+    @html = @markdown #{}""
   end
 
-  def html_string
-    if @input.include?("#")
-      @input = @input.sub("##", "")
-      "<h1>#{@input}</h2>"
-    else
-      "<p>#{@input}</p>"
-    end
+  def chunks_to_lines
+    markdown_lines = @markdown.split("\n")
+  end
+
+  def markdown_to_html
   end
 
   def write
-    File.open('output.txt', 'w') { |file| file.write(html_string) }
+    File.open('my_output.html', 'w') { |file| file.write(@html) }
   end
 
 end
-
-chisel = Chisel.new
-puts chisel.html_string
-chisel.write
